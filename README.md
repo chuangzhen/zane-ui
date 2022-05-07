@@ -1,3 +1,5 @@
+# 学习进度   6-5 10：14
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -44,3 +46,21 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+### 1.创建项目   npx i create-react-app xx --template typescript
+### 2.目录结构   
+
+### 3.styles  公共样式抽离
+## 3.1 _variable.scss    中性色，系列色，字体，字体大小  等等  样式变量
+## 3.2 normalize.css     重置浏览器默认样式
+
+
+### jest 通用测试工具   
+## 运行指令  npx jest jest.test.js
+## ceact-react-app 内置jest
+## 一直运行指令  npx jest jest.test.js --watch
+
+### react测试工具
+## @testing-library/react  详情参考App.test.tsx 文件  运行：npm run test 
+## 

@@ -1,0 +1,32 @@
+//全局mixins
+//按钮的大小
+@mixin button-size($padding-x, $padding-y, $font-size, $border-raduis) {
+  padding: $padding-y $padding-x;
+  font-size: $font-size;
+  border-radius: $border-raduis;
+}
+//按钮的类型
+@mixin button-style(
+  $background,
+  $border,
+  $color,
+  $hover-background: lighten($background, 15%),
+  $hover-border: lighten($border, 10%),
+  $hover-color: $color
+) {
+  color: $color;
+  background: $background;
+  border: $border;
+  &:hover,
+  &:focus {
+    color: $hover-color;
+    background: $hover-background;
+    border: 1px solid $hover-border;
+  }
+  &:disabled,
+  &.disabled {
+    color: $color;
+    background: $hover-background;
+    border: $border;
+  }
+}
