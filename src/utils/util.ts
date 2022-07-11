@@ -58,7 +58,7 @@ export const getUA = () => {
 export function initRem(): void {
   const docEle = document.documentElement;
   const { isMobile } = getUA();
-  window.isMobile = isMobile;
+  // window.isMobile = isMobile;
   function setHtmlFontSize() {
     let deviceWidth = docEle.clientWidth || window.innerWidth;
 
@@ -138,7 +138,7 @@ export function debounce(fn:Function,delay:number=0,immediate?:boolean) {
 }
 
 //函数节流---若干时间内每隔delay时间段只能触发一次函数，
-export function throttle( fn:Function,delay:number,immediate?:boolean) {
+export function throttle( fn:Function,delay:number,immediate?:boolean) :() =>void{
     let timer:NodeJS.Timeout | null;
     
     return function(this: any){

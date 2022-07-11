@@ -1,5 +1,5 @@
 import React, { createRef, LegacyRef, ReactElement, ReactNode } from "react";
-import { throttle } from 'src/utils/util'
+import { throttle } from '../../utils/util'
 
 interface IProps {
     /**单元项渲染组件 */

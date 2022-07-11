@@ -15,15 +15,15 @@ const defaultProps = {
 }
 
 const testButtonProps: ButtonProps = {
-  btnType: ButtonType.Primary,
-  size: ButtonSize.Large,
+  btnType: 'primary',
+  size:'lg',
   className: 'klass',
   onClick: jest.fn(),
   disabled: true
 }
 const testLinkProps: ButtonProps = {
-  btnType: ButtonType.Link,
-  size: ButtonSize.Small,
+  btnType: 'link',
+  size:'sm',
   className: 'linkClass',
   onClick: jest.fn()
 }

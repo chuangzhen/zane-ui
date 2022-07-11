@@ -19,17 +19,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "./",
-    "paths": {
-      "src/*": ["src/*"],
-      "components/*": ["src/components/*"],
-      "utils/*": ["src/utils/*"]
-    },
+    "baseUrl": "./"
   },
   "include": [
     "src"
-  ],
-  "files": [
-    "images.d.ts"
   ]
 }

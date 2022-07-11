@@ -1,6 +1,6 @@
 // var Mock = require('mock.js')
 import Mock from 'mockjs'
-import {sleep} from 'utils/util'
+import {sleep} from 'src/utils/util'
 
 
 const MockGetLifeCicleData = Mock.mock(/\/books/, 'get', function (params) {

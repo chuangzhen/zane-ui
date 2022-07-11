@@ -1,9 +1,9 @@
 
 
-import React from "react";
+import React, { ReactElement } from "react";
 const FormContext = React.createContext(undefined);
 
-function FormProvider({ children, value }) {
+function FormProvider({ children, value }:{ children:ReactElement, value:any }) {
   return (
     <FormContext.Provider value={value}>{children}</FormContext.Provider>
   );

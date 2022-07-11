@@ -14,7 +14,7 @@ export interface IFormInstance {
     getFieldValue: (name: string) => {value:any,err?:string}
     submit: () => void
     reset: () => void
-    registerItemInfos:(IItemUpdateInfo) =>void
+    registerItemInfos:(arg0: IItemUpdateInfo) =>void
     [key: string]: any
 }
 /**表单实例的校验错误信息对象 */

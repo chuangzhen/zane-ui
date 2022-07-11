@@ -1,9 +1,9 @@
-import React, { ReactElement, forwardRef, useImperativeHandle, RefObject, PropsWithChildren, ForwardedRef } from "react";
+import React, { ReactElement, forwardRef, useImperativeHandle, RefObject, PropsWithChildren, ForwardedRef, ReactNode } from "react";
 import { FormProvider } from './useFormItemsContext'
 import { IFormInstance, useForm } from '..'
 
 interface IFormProps {
-    children: ReactElement | Array<ReactElement>
+    children?:  any
     /**Form接收onFinish回调 提交表单数据 */
     onFinish: (data: any) => void
     onFinishFailed: (err: string, values: any) => void
@@ -39,7 +39,7 @@ const Form = (props: PropsWithChildren<IFormProps>, ref: any) => {
             formInstance?.reset()
         }}
     >
-        <FormProvider value={formInstance}>{children}</FormProvider>
+        <FormProvider value={formInstance}>{React.cloneElement(children)}</FormProvider>
     </form>
 
 }

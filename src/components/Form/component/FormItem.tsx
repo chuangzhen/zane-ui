@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useLayoutEffect, useReducer } from "react";
 import { IFormInstance } from "..";
 import { useFormContext } from './useFormItemsContext'
-import  '../_style.scss'
+// import  '../_style.scss'
 import classNames from "classnames";
 
 const Item: React.FC<any> = (props) => {

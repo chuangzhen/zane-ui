@@ -1,52 +1,3 @@
-# 学习进度   6-5 10：14
-
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
 
 ### 1.创建项目   npx i create-react-app xx --template typescript
 ### 2.目录结构   
@@ -63,4 +14,124 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ### react测试工具
 ## @testing-library/react  详情参考App.test.tsx 文件  运行：npm run test 
-## 
+
+
+## 模块打包成NPM包步骤
+##### 1.在根文件 index.tsx中，导出所有的组件实例
+
+##### 2.驯服tsx  将tsx转化成  ---  tsconfig.build.json  --->  es6 module .jsx
+        > 编写tsconfig.build.json文件
+        > 添加打包tsx转化命令 
+        ```
+        //package.json
+        build-ts":"tsc -p tsconfig.build.json", 
+        ```
+        > 执行  npm run build-ts 
+        
+        ·报错1：Cannot find module '@babel/parser'
+        Cannot find module '@babel/types'
+        ...等，是因为ts import 文件时，相对路径和【绝对路径】 的查找方式的问题
+        【解决】：在tsconfig.build.ts 中添加属性
+
+
+        ·报错2:allowSyntheticDefaultImports 报错  需要在tsconfig.build.ts 的compilerOptions中引入这个属性
+
+
+        > 增加对sass文件编译为css --在packmage.json中添加build-css命令
+
+        > 安装依赖 rimraf  可以兼容windows使用rimraf dir 删除命令在打包时删除build文件夹
+
+##### 3.npm link本地测试打包好的组件库npm包
+        · 1.在被连接的npm包文件目录下执行  npm link   
+        ```
+                C:\Users\创\AppData\Roaming\npm\node_modules\zane-ui -> D:\demo\zane-ui
+         ```
+        · 2.在使用组件库的项目目录下执行 npm link  
+               ```
+                D:\demo\react-demo\node_modules\zane-ui -> C:\Users\创真\AppData\Roaming\npm\node_modules\zane-ui -> D:\demo\zane-ui PS D:\demo\react-demo>
+                ```
+
+        · 3.在组件库文件的package.json 添加 配置   
+             ```
+                "main": "build/index.js",
+                "module": "build/index.js",
+                "types": "build.index.d.ts",
+             ```
+        
+
+##### 4.npm 发布
+        · 1.package配置  发布时
+                ```
+                {
+                        name:"包名",
+                        version:"版本号",
+                        //不是私有包
+                        private:false,
+                        //开放协议
+                        "license":"MIT",
+                        //关键词
+                        "keywords":[
+                                "Component",
+                                "UI",
+                                "Function",
+                                "React"
+                        ],
+                        //首页
+                        "homepage":"git地址",
+                        "repository":{
+                                "type":"git",
+                                "url":"git地址"
+                        },
+                        //想要暴露给npm的目录
+                        "files":[
+                                "dist"
+                        ],
+
+                        "script":{
+                              "clean": "rimraf ./dist",
+                              "build": "npm run clean && npm run  build-ts && npm run build-css",  
+                              "build-ts": "tsc -p tsconfig.build.json",
+                              "build-css": "node-sass ./src/styles/index.scss ./dist/index.css",
+                              "storybook": "start-storybook -p 9009 -s public",
+                              "build-storybook": "build-storybook -s public",
+                              //npm 发布命令钩子--
+                              "prepublish": "npm run build"
+
+                              //执行 npm publish 便可将包发布到npm上  
+                        }
+                }
+                       
+                ```
+        · 2.package配置 ，依赖瘦身
+                - 将dependencis中非生产环境必须的依赖移到 devDependencies中
+                - 添加peerDependencies配置项，引用本组件库包的用户会被提示要求预先安装peerDependencies里边的依赖，才能进一步使用组件库
+                ```
+                         "peerDependencies": {
+                                "react": "≥ 16.8.0",
+                                "react-dom": "≥ 16.8.0"
+                        },
+                ```
+
+        · 3.给本地zane-ui项目添加登录 npm账户
+                ```
+                1. npm add user----按提示添加并登录
+                ```
+        · 4.正式发布npm
+                ```
+                        npm publish  
+                        1.会先执行script内的命令
+                        2.执行npm notice 命令将打包好的dist发布到npm上
+
+                        npm notice
+                        npm notice xxx具体dist的文件
+                        ...
+                        npm notice
+                        + zane-ui@0.1.4
+
+                        //表示发布成功，刷新npm用户页面，可以看到对应的包信息
+                ```
+        ·
+
+
+
+## 欠缺：storybook文档配置没有搞

@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    //编译完输出路径
+    "outDir": "dist",
+    //打包后转化成的格式
+    "module": "esnext",
+    //编译完后转化成es5的版本
+    "target": "ES5",
+    // 给每一个js类型生成一个.d.ts类型文件 
+    "declaration": true,
+    //编译完后可以用react.createElement代替jsx
+    "jsx": "react",
+    //用于绝对ts是怎么引入文件时是相对路径还是绝对路径，对文件的查找方式也因此不同，classic相对路径  node 绝对路径
+    "moduleResolution": "Node",
+    //开启允许直接import React from 'react',false时-ts默认false-要求为import * as React from 'react'
+    //支持defalt import 的方式
+    "allowSyntheticDefaultImports": true
+
+  },
+
+  //指定想要编译的目录文件
+  "include": [
+    "src"
+  ],
+  //不希望编译的目录文件
+  "exclude": [
+    //**表示任意长度
+    "src/**/*.test.tsx",
+    "src/**/*.stories.tsx",
+    "src/setupTests.ts",
+  ]
+}

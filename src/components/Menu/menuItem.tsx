@@ -1,13 +1,13 @@
 import React, { CSSProperties, useContext } from "react";
 import classnames from "classnames";
-import './_style.scss'
+// import './_style.scss'
 import { MenuContext } from "./menu";
 
 type TMunemode = 'vertical' | 'horizontal'
 export interface IMenuItemProps {
   className?: string
   /**用于比较index,显示高亮 */
-  index: number
+  key?: string
   style?: CSSProperties
   disabled?: boolean
 
@@ -15,18 +15,19 @@ export interface IMenuItemProps {
 
 
 const MenuItem: React.FC<IMenuItemProps> = (props) => {
-  const { className = "", index, style, disabled, children } = props
-
+  const { className = "", key, style, disabled, children } = props
+  
   const context = useContext(MenuContext)
-
+  
   const classes = classnames('menu-item', className, {
     'is-disabled': disabled,
-    'is-active': context.index === index
+    'is-active': context.activeKey === key
   })
+  console.log(context,"🚀 ~ file: menuItem.tsx ~ line 18 ~ props", props)
 
   const handleClick = () => {
-    if (context?.onSelect && !disabled) {
-      context.onSelect(index)
+    if (context?.onSelect && !disabled && (typeof key === 'string')) {
+      context.onSelect(key)
     }
   }
 
@@ -35,5 +36,7 @@ const MenuItem: React.FC<IMenuItemProps> = (props) => {
       onClick={handleClick}
     >{children}</li>)
 }
+
+MenuItem.displayName = 'MenuItem'
 
 export default MenuItem
