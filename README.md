@@ -134,4 +134,30 @@
 
 
 
+
+
+##### 5.代码规范检查 lint 和 test 校验
+        · 1.eslint 校验指定目录下的指定格式文件[href=https://eslint.org/docs/latest/user-guide/command-line-interface];
+                ```
+                scripts:{
+                        //--max-warnings num 允许终端展示的warning数量,超过则异常退出后续的eslint执行
+                 "lint": "eslint --ext .jsx,.js,.tsx src  --max-warnings 5",
+                }
+
+                 ```
+        · 2.cross-env 插件设置跨平台环境变量
+                ```
+                scripts{
+                        // 运行该命令，遇到测试命令报错会中断执行，退出剩余的测试逻辑
+                        "test:nowatch":"cross-env CI=true react-scripts test"
+                }
+                ```
+        · 3.完善发布指令
+                ```
+                scripts{
+                        // 运行该命令，先进行lint校验，通过后执行test校验，通过后才会执行打包发布
+                        "prepublish":"npm run lint && npm run test:nowatch && npm run build"
+                }
+                ```
+        ·
 ## 欠缺：storybook文档配置没有搞
