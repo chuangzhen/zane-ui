@@ -81,11 +81,11 @@ var FormStore = /** @class */ (function () {
                 var value = (_c = _this.getFieldValue(name)) === null || _c === void 0 ? void 0 : _c.value;
                 //需要 required-true 校验
                 if (((rules === null || rules === void 0 ? void 0 : rules.required) && !value) || (!!value && !!(rules === null || rules === void 0 ? void 0 : rules.validator) && !(rules === null || rules === void 0 ? void 0 : rules.validator(value)))) {
-                    _this.errorStore = __assign(__assign({}, _this.errorStore), (_a = {}, _a[name] = (rules === null || rules === void 0 ? void 0 : rules.message) || "".concat(name, " is required."), _a));
+                    _this.errorStore = __assign(__assign({}, _this.errorStore), (_a = {}, _a[name] = (rules === null || rules === void 0 ? void 0 : rules.message) || name + " is required.", _a));
                     err.push((_b = {
                             value: value
                         },
-                        _b[name] = (rules === null || rules === void 0 ? void 0 : rules.message) || "".concat(name, " is required."),
+                        _b[name] = (rules === null || rules === void 0 ? void 0 : rules.message) || name + " is required.",
                         _b));
                     //触发对应FormItem组件更新
                     console.log(item, '99999');

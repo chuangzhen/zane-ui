@@ -26,6 +26,7 @@
     "start": "react-scripts start",
     "clean": "rimraf ./dist",
     "lint": "eslint --ext .jsx,.js,.tsx src  --max-warnings 5",
+    "prepare": "husky install",
     "build": "npm run clean && npm run  build-ts && npm run build-css",
     "test": "react-scripts test",
     "test:nowatch": "cross-env CI=true react-scripts test",
@@ -35,11 +36,6 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "prepublish": "npm run lint && npm run test:nowatch && npm run build"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run test:nowatch && npm run lint"
-    }
   },
   "eslintConfig": {
     "extends": [

@@ -147,6 +147,7 @@
                  ```
         · 2.cross-env 插件设置跨平台环境变量
                 ```
+                // yarn add cross-env --dev
                 scripts{
                         // 运行该命令，遇到测试命令报错会中断执行，退出剩余的测试逻辑
                         "test:nowatch":"cross-env CI=true react-scripts test"
@@ -159,5 +160,31 @@
                         "prepublish":"npm run lint && npm run test:nowatch && npm run build"
                 }
                 ```
-        ·
+        · 4. Git hooks made easy -- husky 在commit和push前，执行设置好的指令，可以用于commit前执行test  lint等指令
+
+                ```    
+
+                //husky v6之前使用
+                "husky": {
+                        "hooks": {
+                                "pre-commit": "npm run test:nowatch && npm run x`"
+                        }
+                },
+
+
+                 // husky v6.0之后使用方式改变
+                 - 1.package添加script命令 prepare,[ npm run prepare ] 创建.husky目录文件
+  
+                 - 2.添加git hooks，运行一下命令创建git hooks ---- npx husky add .husky/pre-commit "npm run test:nowatch && npm run lint" （.husky/目录下新增了一个名为pre-commit的shell脚本）
+               
+                 - 3.执行 git commit 指令可以看到pre-commit的命令生效执行
+
+
+                "script"{
+                        "prepare":"husky install"
+                }    
+                        
+
+
+                ```
 ## 欠缺：storybook文档配置没有搞

@@ -26,8 +26,8 @@ var Button = function (props) {
     var _a;
     var _b = props.className, className = _b === void 0 ? '' : _b, _c = props.disabled, disabled = _c === void 0 ? false : _c, _d = props.size, size = _d === void 0 ? 'lg' : _d, _e = props.btnType, btnType = _e === void 0 ? 'primary' : _e, href = props.href, children = props.children, restProps = __rest(props, ["className", "disabled", "size", "btnType", "href", "children"]);
     var classes = classnames('btn', className, (_a = {},
-        _a["btn-".concat(btnType)] = btnType,
-        _a["btn-".concat(size)] = size,
+        _a["btn-" + btnType] = btnType,
+        _a["btn-" + size] = size,
         _a['disabled'] = (btnType === 'link') && disabled,
         _a));
     if (btnType === 'link' && href) {

@@ -23,7 +23,7 @@ var ScrllView = /** @class */ (function (_super) {
             var _a, _b;
             var scrollEle = null;
             if ((_a = _this.props) === null || _a === void 0 ? void 0 : _a.scrollContinerId) {
-                scrollEle = document.querySelector("#".concat((_b = _this.props) === null || _b === void 0 ? void 0 : _b.scrollContinerId));
+                scrollEle = document.querySelector("#" + ((_b = _this.props) === null || _b === void 0 ? void 0 : _b.scrollContinerId));
             }
             else {
                 scrollEle = (document === null || document === void 0 ? void 0 : document.body) || (document === null || document === void 0 ? void 0 : document.documentElement);
@@ -60,7 +60,7 @@ var ScrllView = /** @class */ (function (_super) {
     ScrllView.prototype.componentDidMount = function () {
         var _a, _b;
         if ((_a = this.props) === null || _a === void 0 ? void 0 : _a.scrollContinerId) {
-            var scrollEle = document.querySelector("#".concat((_b = this.props) === null || _b === void 0 ? void 0 : _b.scrollContinerId));
+            var scrollEle = document.querySelector("#" + ((_b = this.props) === null || _b === void 0 ? void 0 : _b.scrollContinerId));
             scrollEle === null || scrollEle === void 0 ? void 0 : scrollEle.addEventListener('scroll', this.handleScroll.bind(this));
         }
         else {
@@ -71,7 +71,7 @@ var ScrllView = /** @class */ (function (_super) {
     ScrllView.prototype.componentWillUnmount = function () {
         var _a, _b;
         if ((_a = this.props) === null || _a === void 0 ? void 0 : _a.scrollContinerId) {
-            var scrollEle = document.querySelector("#".concat((_b = this.props) === null || _b === void 0 ? void 0 : _b.scrollContinerId));
+            var scrollEle = document.querySelector("#" + ((_b = this.props) === null || _b === void 0 ? void 0 : _b.scrollContinerId));
             scrollEle === null || scrollEle === void 0 ? void 0 : scrollEle.removeEventListener('scroll', this.handleScroll);
         }
         else {
