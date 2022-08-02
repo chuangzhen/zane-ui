@@ -162,27 +162,37 @@
                 ```
         · 4. Git hooks made easy -- husky 在commit和push前，执行设置好的指令，可以用于commit前执行test  lint等指令
 
+       
+
                 ```    
 
                 //husky v6之前使用
                 "husky": {
                         "hooks": {
-                                "pre-commit": "npm run test:nowatch && npm run x`"
+                                "pre-commit": "npm run test:nowatch && npm run lint"
                         }
                 },
 
 
                  // husky v6.0之后使用方式改变
                  - 1.package添加script命令 prepare,[ npm run prepare ] 创建.husky目录文件
-  
+                        ```
+                        "script"{
+                                "prepare":"husky install"
+                        }    
+                        //创建.husky目录文件 
+                        npm run prepare 
+                        //【注意】多安装一次依赖，步骤2才能成功
+                        npm install / yarn   
+                        ```
                  - 2.添加git hooks，运行一下命令创建git hooks ---- npx husky add .husky/pre-commit "npm run test:nowatch && npm run lint" （.husky/目录下新增了一个名为pre-commit的shell脚本）
                
                  - 3.执行 git commit 指令可以看到pre-commit的命令生效执行
 
+                //报错 husky - pre-commit hook exited with code 1 (error)
 
-                "script"{
-                        "prepare":"husky install"
-                }    
+
+                    
                         
 
 

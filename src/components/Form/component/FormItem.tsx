@@ -5,7 +5,7 @@ import { useFormContext } from './useFormItemsContext'
 import classNames from "classnames";
 
 const Item: React.FC<any> = (props) => {
-    const { children, name, label = '', rules = {}, ...rest } = props
+    const { children, name, label = '', rules = {}, } = props
     //获取context中form的实例对象的方法
     const { getFieldValue, setFieldsValue, registerItemInfos }: IFormInstance = useFormContext()
     //定义 强制 Item 组件更新的方法，将这个更新方法透传给实例对象注册
@@ -24,15 +24,15 @@ const Item: React.FC<any> = (props) => {
     }, [])
 
     return <div className={'item_container'} >
-        <div className={ 'item_content'}>
-            <span className={classNames( 'item_label', {
-                 'item_hidden': !label,
+        <div className={'item_content'}>
+            <span className={classNames('item_label', {
+                'item_hidden': !label,
                 'item_required': rules?.required,
-                 'item_not_required': !rules?.required
+                'item_not_required': !rules?.required
             })}>
                 {label}:
             </span>
-            <div className={ 'item_wrapper'}>
+            <div className={'item_wrapper'}>
                 {React.cloneElement(children, {
                     value: getFieldValue(name)?.value || '',
                     onChange: (e: ChangeEvent<HTMLFormElement>) => {
@@ -45,8 +45,8 @@ const Item: React.FC<any> = (props) => {
                     }
 
                 })}
-                <div className={classNames( 'item_err', {
-                     'item_hidden': !getFieldValue(name)?.err
+                <div className={classNames('item_err', {
+                    'item_hidden': !getFieldValue(name)?.err
                 }
                 )}>{getFieldValue(name)?.err || ''}</div>
             </div>

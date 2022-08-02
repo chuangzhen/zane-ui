@@ -1,8 +1,7 @@
 import React, { CSSProperties, createContext, useState } from "react";
 import classnames from "classnames";
-import {IMenuItemProps} from './menuItem'
+import { IMenuItemProps } from './menuItem'
 // import './_style.scss'
-import { chdir } from "process";
 
 type TMunemode = 'vertical' | 'horizontal'
 type TSelectCallback = (selectKey: string) => void
@@ -22,17 +21,18 @@ export interface IMenuProps {
 }
 
 interface IMenuContext {
-  mode:TMunemode
+  mode: TMunemode
   activeKey: string
-  activeSubMenuKey?:string[]
+  activeSubMenuKey?: string[]
   onSelect?: TSelectCallback
 }
 
 /**context-用于透传参数 */
-export const MenuContext = createContext<IMenuContext>({mode:'vertical', activeKey: '', })
+export const MenuContext = createContext<IMenuContext>({ mode: 'vertical', activeKey: '', })
 
 const MenuIndex: React.FC<IMenuProps> = (props) => {
-  const { className = "", mode, style, activeKey = '', activeSubMenuKey=[],children, onSelect } = props
+  //activeKey = '', activeSubMenuKey = [],
+  const { className = "", mode, style, children, onSelect } = props
   /**当前活跃的下标-从0开始 */
   const [currentActiveKey, setActiveKey] = useState<string>('a')
 
@@ -45,43 +45,42 @@ const MenuIndex: React.FC<IMenuProps> = (props) => {
     }
   )
   //点击选中当前active的menu & 用户自定义onSelect操作
-  const handleClick = (key: string) => {
-    setActiveKey(key)
-    onSelect && onSelect(key)
+  const handleClick = (value: string) => {
+    setActiveKey(value)
+    onSelect && onSelect(value)
   }
 
   const passedContext: IMenuContext = {
-    mode:mode||'vertical',
+    mode: mode || 'vertical',
     activeKey: currentActiveKey || '',
-    activeSubMenuKey:[],
+    activeSubMenuKey: [],
     onSelect: handleClick
   }
-  
+
 
   /**Menu组件升级
    * 1.内部非menuItem组件不展示处理
    * 2.MenuItem的index非必传，没传按顺序给默认值 ,使用组件时，index就可以不传了
    * */
   const renderChildren = () => {
-    return React.Children.map(children,(child,index) =>{
-        console.log("🚀 ~ file: menu.tsx ~ line 67 ~ returnReact.Children.map ~ child", child)
-        
-        // child有很多其他的类型,ts没有提示displayName属性，使用ts的断言，将child断言为对应的React.FunctionComponentElement<IMenuItemProps> 组件类型，便可以获取到检测到语displayName属性
-        const childElement  = child as React.FunctionComponentElement<IMenuItemProps>
-        console.log('111--->' ,React.cloneElement(childElement));
-        // React.FunctionComponentElement<IMenuItemProps> 属性有key props type ref  4个属性
-       const {displayName=''} =  childElement.type
+    return React.Children.map(children, (child, index) => {
+      // console.log("🚀 ~ file: menu.tsx ~ line 67 ~ returnReact.Children.map ~ child", child)
 
-       if (['MenuItem','SubMenu'].includes(displayName)) {
-         return React.cloneElement(childElement) 
-       }else{
-         console.error('Warning:Menu has a child which is not a MenuItem Component!')
-       }
+      // child有很多其他的类型,ts没有提示displayName属性，使用ts的断言，将child断言为对应的React.FunctionComponentElement<IMenuItemProps> 组件类型，便可以获取到检测到语displayName属性
+      const childElement = child as React.FunctionComponentElement<IMenuItemProps>
+      // React.FunctionComponentElement<IMenuItemProps> 属性有key props type ref  4个属性
+      const { displayName = '' } = childElement.type
+
+      if (['MenuItem', 'SubMenu'].includes(displayName)) {
+        return React.cloneElement(childElement, { ...childElement.props })
+      } else {
+        console.error('Warning:Menu has a child which is not a MenuItem Component!')
+      }
     })
 
   }
   return (
-    <ul style={style || {}} className={classes} data-testid = 'test-menu' >
+    <ul style={style || {}} className={classes} data-testid='test-menu' >
       < MenuContext.Provider value={passedContext}>
         {renderChildren()}
       </ MenuContext.Provider>

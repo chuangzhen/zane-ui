@@ -1,6 +1,6 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import Button, { ButtonProps, ButtonType, ButtonSize } from "./button";
+import Button, { ButtonProps } from "./button";
 
 
 // test('ouer first react test case button', () => {
@@ -16,14 +16,14 @@ const defaultProps = {
 
 const testButtonProps: ButtonProps = {
   btnType: 'primary',
-  size:'lg',
+  size: 'lg',
   className: 'klass',
   onClick: jest.fn(),
   disabled: true
 }
 const testLinkProps: ButtonProps = {
   btnType: 'link',
-  size:'sm',
+  size: 'sm',
   className: 'linkClass',
   onClick: jest.fn()
 }
@@ -40,6 +40,7 @@ describe('test button component', () => {
 
     //测试模拟点击事件
     fireEvent.click(element)
+
     expect(defaultProps.onClick).toHaveBeenCalled()
 
   })

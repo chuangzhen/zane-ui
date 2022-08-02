@@ -7,7 +7,7 @@ import { IMenuItemProps } from "./menuItem";
 export interface ISubMenuProps {
   title: string
   /**用于比较index,显示高亮 */
-  key: string
+  value: string
   className?: string
   style?: CSSProperties
   disabled?: boolean
@@ -15,18 +15,18 @@ export interface ISubMenuProps {
 
 
 const SubMenu: React.FC<ISubMenuProps> = (props) => {
-  const { title = '', className = "", key, style, disabled, children } = props
+  const { title = '', className = "", value, style, disabled, children } = props
 
   const context = useContext(MenuContext)
 
-  const isOpen = context.mode === 'vertical' && context.activeSubMenuKey?.includes(key)
+  const isOpen = context.mode === 'vertical' && context.activeSubMenuKey?.includes(value)
 
   const [subMenuOpen, setSubMenuOpen] = useState(isOpen)
 
   const classes = classnames('menu-item submenu-item', className, {
     'is-disabled': disabled,
-    'is-opened':subMenuOpen,
-    'is-active': context.activeKey === key,
+    'is-opened': subMenuOpen,
+    'is-active': context.activeKey === value,
     'is-vertical': context.mode === 'vertical'
   })
 
@@ -51,7 +51,7 @@ const SubMenu: React.FC<ISubMenuProps> = (props) => {
   const hoverEvents = context.mode === 'horizontal' ? {
     onMouseEnter: (e: React.MouseEvent) => { handleMouse(e, true) },
     onMouseLeave: (e: React.MouseEvent) => { handleMouse(e, false) }
-  }:{}
+  } : {}
 
 
 
@@ -76,7 +76,7 @@ const SubMenu: React.FC<ISubMenuProps> = (props) => {
   }
 
   return (
-    <li className={classes} style={style || {}} {...hoverEvents} key={key}>
+    <li className={classes} style={style || {}} {...hoverEvents} value={value}>
       <div className="submenu-title" {...clickEvents}>
         {title}
         <span className="arrow-icon">{'>'}</span>

@@ -1,6 +1,6 @@
 // var Mock = require('mock.js')
 import Mock from 'mockjs'
-import {sleep} from 'src/utils/util'
+// import {sleep} from 'src/utils/util'
 
 
 const MockGetLifeCicleData = Mock.mock(/\/books/, 'get', function (params) {
@@ -23,8 +23,8 @@ const MockGetLifeCicleData = Mock.mock(/\/books/, 'get', function (params) {
     }
     // //等待5秒
     // sleep(5000)
-    
-    if(props.page < total_page){
+
+    if (props.page < total_page) {
         return Mock.mock({
             'code': 0,
             'data': {
@@ -35,9 +35,9 @@ const MockGetLifeCicleData = Mock.mock(/\/books/, 'get', function (params) {
                     'cover': Mock.Random.image('80x160', '#ffcc33', '#FFF', 'png'),
                     'desc': Mock.Random.cparagraph(1, 4)
                 }],
-                'pagination':{
-                    current_page:parseInt(props.page),
-                    total_page:8,
+                'pagination': {
+                    current_page: parseInt(props.page),
+                    total_page: 8,
                 }
             }
         })
@@ -46,9 +46,9 @@ const MockGetLifeCicleData = Mock.mock(/\/books/, 'get', function (params) {
         'code': 0,
         'data': {
             'list': [],
-            'pagination':{
-                current_page:parseInt(props.page),
-                total_page:total_page,
+            'pagination': {
+                current_page: parseInt(props.page),
+                total_page: total_page,
             }
         }
     })
